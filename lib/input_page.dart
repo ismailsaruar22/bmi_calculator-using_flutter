@@ -17,6 +17,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 150;
+  int weight = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,7 @@ class _InputPageState extends State<InputPage> {
                           children: [
                             Text(
                               height.toString(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 50.0,
-                              ),
+                              style: kboldTextStyle,
                             ),
                             const Text(
                               'CM',
@@ -128,6 +126,47 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     colour: kInactiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kboldTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: Icons.remove,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    weight--;
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: Icons.add,
+                              onPress: () {
+                                setState(
+                                  () {
+                                    weight++;
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(

@@ -12,3 +12,7 @@ const kTextStyle = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 50.0,
 );
+const kboldTextStyle = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 50.0,
+);
