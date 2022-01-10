@@ -1,8 +1,13 @@
 import 'package:bmi_calculator/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'constant.dart';
 import 'icon_content.dart';
+
+enum Gender {
+  male,
+  female,
+}
 
 class InputPage extends StatefulWidget {
   @override
@@ -10,11 +15,14 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender? selectedGender;
+  int height = 150;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1D1E33),
+        backgroundColor: kAppBarBackgroundColor,
         title: const Text('BMI CALCULATOR'),
       ),
       body: Column(
@@ -24,19 +32,37 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: const Color(0xFF1D1E33),
-                    cardChild: IconContent(
-                      FontAwesomeIcons.mars,
-                      'Male',
+                    onPress: () {
+                      setState(
+                        () {
+                          selectedGender = Gender.male;
+                        },
+                      );
+                    },
+                    colour: selectedGender == Gender.male
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    cardChild: const IconContent(
+                      icon: FontAwesomeIcons.mars,
+                      label: 'Male',
                     ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: const Color(0xFF1D1E33),
-                    cardChild: IconContent(
-                      FontAwesomeIcons.venus,
-                      'Female',
+                    onPress: () {
+                      setState(
+                        () {
+                          selectedGender = Gender.female;
+                        },
+                      );
+                    },
+                    colour: selectedGender == Gender.female
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    cardChild: const IconContent(
+                      icon: FontAwesomeIcons.venus,
+                      label: 'Female',
                     ),
                   ),
                 ),
@@ -48,7 +74,49 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: const Color(0xFF1D1E33),
+                    colour: kInactiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'HEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              height.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 50.0,
+                              ),
+                            ),
+                            const Text(
+                              'CM',
+                              style: kLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                        Slider(
+                          value: height.toDouble(),
+                          min: 80,
+                          max: 220,
+                          activeColor: Colors.greenAccent.shade400,
+                          inactiveColor: Colors.white54,
+                          thumbColor: Colors.blue.shade900,
+                          onChanged: (double newValue) {
+                            setState(
+                              () {
+                                height = newValue.round();
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -59,12 +127,12 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: const Color(0xFF1D1E33),
+                    colour: kInactiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: const Color(0xFF1D1E33),
+                    colour: kInactiveCardColor,
                   ),
                 ),
               ],
@@ -73,16 +141,17 @@ class _InputPageState extends State<InputPage> {
           Container(
             height: 60.0,
             width: double.infinity,
-            margin: EdgeInsets.only(top: 10.0),
-            color: Color(0xFFEA1556),
+            margin: const EdgeInsets.only(top: 10.0),
+            color: kBottomContainerColor,
             child: const Center(
-                child: Text(
-              'CALCULATE YOUR BMI',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+              child: Text(
+                'CALCULATE YOUR BMI',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            )),
+            ),
           )
         ],
       ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'constant.dart';
 
 class IconContent extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  IconContent(this.icon, this.label);
+  final IconData? icon;
+  final String? label;
+  const IconContent({this.icon, this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +16,10 @@ class IconContent extends StatelessWidget {
           icon,
           size: 70,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 20,
-            color: Color(0xFFE9EAEF),
-          ),
-        ),
+        Text(label!, style: kLabelTextStyle),
       ],
     );
   }
